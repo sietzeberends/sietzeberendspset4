@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             db = TodoDatabase.getInstance((getApplicationContext()));
             checkBox = (CheckBox) view.findViewById(R.id.checkBox);
-            
+
             if(checkBox.isChecked()) {
                 completed = 0;
                 checkBox.setPaintFlags(checkBox.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class OnItemLongClickListener implements AdapterView.OnItemLongClickListener {
-
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
             db = TodoDatabase.getInstance((getApplicationContext()));
@@ -85,5 +84,4 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     }
-
 }
