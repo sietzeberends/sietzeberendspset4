@@ -8,4 +8,9 @@ App that allows a user to add To-Do items, remove To-Do items and mark To-Do ite
 
 Screenshot vertical:
 
+![alt text](https://raw.githubusercontent.com/sietzeberends/sietzeberendspset4/master/vertical.png)
+
+
 Screenshot landscape
+
+![alt text](https://raw.githubusercontent.com/sietzeberends/sietzeberendspset4/master/landscape.png)
