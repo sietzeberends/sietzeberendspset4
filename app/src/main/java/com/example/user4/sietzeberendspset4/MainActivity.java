@@ -1,8 +1,8 @@
 package com.example.user4.sietzeberendspset4;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -15,6 +15,9 @@ import android.widget.ListView;
 public class MainActivity extends AppCompatActivity {
         EditText editText;
         ListView listView;
+
+        int completed;
+        CheckBox checkBox;
 
         private TodoAdapter todoAdapter;
         private TodoDatabase db;
@@ -29,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(todoAdapter);
-        listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
+
 
         OnItemClickListener clickListener = new OnItemClickListener();
         listView.setOnItemClickListener(clickListener);
@@ -50,24 +53,23 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateData() {
         todoAdapter.swapCursor(db.selectAll());
-
+        todoAdapter.notifyDataSetChanged();
     }
 
     private class OnItemClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            CheckBox checkBox = findViewById(R.id.checkBox);
-            checkBox.setChecked(!checkBox.isChecked());
-            int completed = 0;
+            db = TodoDatabase.getInstance((getApplicationContext()));
+            checkBox = (CheckBox) view.findViewById(R.id.checkBox);
+            
             if(checkBox.isChecked()) {
-                completed = 1;
+                completed = 0;
+                checkBox.setPaintFlags(checkBox.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
             }
             else {
-                completed = 0;
+                completed = 1;
+                checkBox.setPaintFlags(checkBox.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             }
-            System.out.println(position);
-            db = TodoDatabase.getInstance((getApplicationContext()));
             db.update(id, completed);
             updateData();
         }
